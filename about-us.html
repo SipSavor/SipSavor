@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | SipSavor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fdfcf9; 
+            --accent: #ff6b6b; 
+            --card-shadow: 15px 15px 40px #e0dfdb, -15px -15px 40px #ffffff;
+            --text: #2d3436;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            font-family: 'Outfit', sans-serif;
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        nav {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+            margin-top: 30px;
+            width: 85%;
+            max-width: 1100px;
+            padding: 15px 40px;
+            background: rgba(253, 252, 249, 0.9); 
+            backdrop-filter: blur(10px);
+            border-radius: 100px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            gap: 20px;
+        }
+
+        .business-name { font-weight: 800; font-size: 1.4rem; letter-spacing: -1px; color: var(--text); text-decoration: none; flex-shrink: 0; }
+        .business-name span { color: var(--accent); }
+
+        .search-wrapper { flex-grow: 1; max-width: 300px; position: relative; }
+        #siteSearch { width: 100%; padding: 10px 20px; border-radius: 50px; border: 1px solid rgba(0,0,0,0.1); font-family: 'Outfit', sans-serif; outline: none; box-sizing: border-box; }
+
+        #search-results-list { position: absolute; top: 48px; left: 0; width: 100%; background: white; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: none; overflow: hidden; z-index: 1001; border: 1px solid #eee; }
+        .search-item { padding: 12px 20px; border-bottom: 1px solid #f9f9f9; cursor: pointer; font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center; }
+        .search-item:hover { background: #fff5f5; }
+
+        .mini-add-btn { background: var(--accent); color: white; border: none; padding: 6px 14px; border-radius: 12px; font-weight: 800; font-size: 0.75rem; cursor: pointer; transition: 0.2s; }
+        .mini-add-btn:hover { transform: scale(1.1); }
+        .info-badge { color: var(--accent); font-weight: 700; }
+
+        .nav-links { display: flex; gap: 25px; flex-shrink: 0; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+
+        .header { margin-top: 80px; text-align: center; padding: 0 20px; max-width: 800px; }
+        .header h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; margin-bottom: 20px; line-height: 1.1; }
+        .header p { font-size: 1.2rem; color: #636e72; line-height: 1.6; }
+
+        .story-section { width: 85%; max-width: 1100px; margin-top: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .story-content { background: var(--bg); padding: 40px; border-radius: 40px; box-shadow: var(--card-shadow); border: 2px solid rgba(255, 107, 107, 0.1); display: flex; flex-direction: column; }
+        .story-content h2 { color: var(--accent); font-size: 2.2rem; margin: 0 0 20px 0; font-weight: 800; }
+        .story-content p { line-height: 1.7; font-size: 1.1rem; color: #636e72; margin-bottom: 25px; }
+
+        .value-list { list-style: none; padding: 0; margin: 0; }
+        .value-item { display: flex; gap: 15px; margin-bottom: 25px; }
+        .value-item span { font-size: 1.8rem; }
+        .value-item strong { display: block; font-size: 1.1rem; color: var(--text); }
+        .value-item p { margin: 5px 0 0; font-size: 0.95rem; line-height: 1.4; }
+
+        .btn { display: inline-block; background: var(--accent); color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; align-self: flex-start; margin-top: auto; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3); }
+
+        .team-title { margin-top: 100px; text-align: center; font-weight: 800; font-size: 2.5rem; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; width: 85%; max-width: 1100px; margin: 40px 0 100px; }
+        .team-card { background: #ffffff; padding: 40px 30px; border-radius: 30px; box-shadow: var(--card-shadow); text-align: center; transition: transform 0.3s ease; }
+        .team-card:hover { transform: translateY(-10px); }
+        .profile-circle { width: 80px; height: 80px; background: var(--bg); border-radius: 50%; margin: 0 auto 20px; border: 4px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        .team-card h4 { margin: 10px 0 5px; font-size: 1.4rem; font-weight: 800; }
+        .team-card span { color: var(--accent); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        #cart-sidebar { position: fixed; right: -350px; top: 0; width: 300px; height: 100%; background: white; box-shadow: -10px 0 30px rgba(0,0,0,0.1); z-index: 2000; transition: 0.4s; padding: 30px; display: flex; flex-direction: column; box-sizing: border-box; }
+        #cart-sidebar.open { right: 0; }
+        #cart-items { flex-grow: 1; overflow-y: auto; }
+        .cart-item { display: flex; justify-content: space-between; padding: 12px 10px; border-bottom: 1px solid #eee; font-weight: 600; cursor: pointer; }
+        .cart-item:hover { text-decoration: line-through; color: var(--accent); background: #fff5f5; }
+        .cart-trigger { position: fixed; bottom: 30px; right: 30px; background: var(--accent); color: white; width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; z-index: 1500; box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4); }
+        #cart-count { position: absolute; top: 0; right: 0; background: var(--text); color: white; font-size: 0.8rem; padding: 4px 8px; border-radius: 50%; border: 2px solid white; }
+
+        footer { width: 100%; padding: 60px 0; background: #fff; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); color: #b2bec3; }
+        .footer-links { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
+        .footer-links a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+        @media (max-width: 850px) {
+            .story-section { grid-template-columns: 1fr; }
+            nav { flex-direction: column; border-radius: 30px; padding: 20px; }
+            .search-wrapper { width: 100%; max-width: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cart-sidebar">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="margin:0">Order Plan</h2>
+            <div onclick="toggleCart()" style="cursor:pointer; font-size:1.8rem; font-weight:800; color:var(--accent);">×</div>
+        </div>
+        <div id="cart-items"></div>
+        <div style="font-weight: 800; font-size: 1.4rem; text-align: right; margin-top: 10px;">Total: $<span id="total-amount">0.00</span></div>
+        <div style="background: #fff5f5; padding: 15px; border-radius: 15px; font-size: 0.85rem; color: var(--accent); margin-top: 15px; font-weight: 600; text-align: center;">Bring cash to school!</div>
+        <button onclick="clearCart()" style="margin-top:10px; background:#f1f1f1; border:none; padding:12px; border-radius:12px; cursor:pointer; font-family:'Outfit'; font-weight:700; width:100%;">Clear All</button>
+    </div>
+
+    <div class="cart-trigger" onclick="toggleCart()">
+        🛒 <span id="cart-count">0</span>
+    </div>
+
+    <nav>
+        <a href="index.html" class="business-name">SipSavor<span>.</span></a>
+        <div class="search-wrapper">
+            <input type="text" id="siteSearch" placeholder="Search snacks or sellers..." autocomplete="off">
+            <div id="search-results-list"></div>
+        </div>
+        <div class="nav-links">
+            <a href="menu.html">Menu</a>
+            <a href="sellers.html">Sellers</a>
+            <a href="about-us.html">About Us</a>
+        </div>
+    </nav>
+
+    <div class="header">
+        <h1>For Students.<br>By Students.</h1>
+        <p>Learn more about why we started SipSavor at Nettleton Jr. High.</p>
+    </div>
+
+    <section class="story-section">
+        <div class="story-content">
+            <h2>Our Mission</h2>
+            <p>At SipSavor, we believe every student deserves a great snack at a fair price. We started this project at NJHS to provide a convenient way for our classmates to grab their favorites between classes.</p>
+            <p>Everything we sell is managed by students. We handle the inventory, pricing, and deliveries to make sure you get what you want, when you want it.</p>
+            <a href="https://docs.google.com/forms/d/1J7k96Ouei26b_kRR7Q_Qdtpr_CnyQ3PazYrajT-8vX4/edit" target="_blank" class="btn">Request a Snack</a>
+        </div>
+
+        <div class="story-content" style="border-left: 6px solid var(--accent);">
+            <h2>Why Choose Us?</h2>
+            <div class="value-list">
+                <div class="value-item">
+                    <span>💸</span>
+                    <div>
+                        <strong>Student-Friendly Prices</strong>
+                        <p>We keep our prices low because we know exactly what a student's budget looks like.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <span>📍</span>
+                    <div>
+                        <strong>Always Convenient</strong>
+                        <p>No need to wait. We're right here on campus, saving you time and money.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <span>🤝</span>
+                    <div>
+                        <strong>Peer Powered</strong>
+                        <p>Every purchase supports student learning and builds a better NJHS community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="team-title">The Departments</div>
+
+    <section class="team-grid">
+        <div class="team-card">
+            <div class="profile-circle">🎒</div>
+            <span>Sales & Logistics</span>
+            <h4>The Sellers</h4>
+        </div>
+        <div class="team-card">
+            <div class="profile-circle">📊</div>
+            <span>Management</span>
+            <h4>The Founders</h4>
+        </div>
+        <div class="team-card">
+            <div class="profile-circle">💻</div>
+            <span>Digital Team</span>
+            <h4>Web Devs</h4>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 SipSavor. A NJHS Student Business Project.</p>
+        <div class="footer-links">
+            <a href="contact.html">Contact Us</a> • 
+            <a href="https://docs.google.com/forms/d/1J7k96Ouei26b_kRR7Q_Qdtpr_CnyQ3PazYrajT-8vX4/edit" target="_blank">Request a Snack</a>
+        </div>
+    </footer>
+
+    <script>
+        // --- CART LOGIC ---
+        let cart = JSON.parse(localStorage.getItem('sipSavorCart')) || [];
+
+        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
+
+        function addToCart(name, price) {
+            cart.push({ name, price: parseFloat(price) });
+            saveAndUpdate();
+            if(!document.getElementById('cart-sidebar').classList.contains('open')) toggleCart();
+        }
+
+        function removeFromCart(index) { cart.splice(index, 1); saveAndUpdate(); }
+        function clearCart() { cart = []; saveAndUpdate(); }
+
+        function saveAndUpdate() {
+            localStorage.setItem('sipSavorCart', JSON.stringify(cart));
+            updateUI();
+        }
+
+        function updateUI() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            let total = 0;
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="color:#b2bec3; text-align:center; margin-top:20px;">Empty!</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    const div = document.createElement('div');
+                    div.className = 'cart-item';
+                    div.onclick = () => removeFromCart(index);
+                    div.innerHTML = `<span>${item.name}</span><span>$${item.price.toFixed(2)}</span>`;
+                    container.appendChild(div);
+                });
+            }
+            document.getElementById('total-amount').innerText = total.toFixed(2);
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        updateUI();
+
+        // --- SEARCH LOGIC (Fruit Snacks removed) ---
+        const searchData = [
+            { name: "Takis Fuego", info: "$0.50", price: 0.50, type: "snack", target: "menu.html" },
+            { name: "Water", info: "$1.00", price: 1.00, type: "snack", target: "menu.html" },
+            { name: "Gatorade", info: "$1.50", price: 1.50, type: "snack", target: "menu.html" },
+            { name: "Ayden Wilson", info: "Seller", type: "seller", target: "sellers.html" },
+            { name: "Samuel Davis", info: "Seller", type: "seller", target: "sellers.html" }
+        ];
+
+        const searchInput = document.getElementById('siteSearch');
+        const resultsList = document.getElementById('search-results-list');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase().trim();
+            resultsList.innerHTML = '';
+            if (query === '') { resultsList.style.display = 'none'; return; }
+
+            const matches = searchData.filter(item => item.name.toLowerCase().includes(query));
+
+            if (matches.length > 0) {
+                resultsList.style.display = 'block';
+                matches.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'search-item';
+                    
+                    if (item.type === "snack") {
+                        div.innerHTML = `<span>${item.name}</span> <button class="mini-add-btn" onclick="event.stopPropagation(); addToCart('${item.name}', ${item.price})">+ Add</button>`;
+                        div.onclick = () => { window.location.href = item.target; };
+                    } else {
+                        div.innerHTML = `<span>${item.name}</span> <span class="info-badge">${item.info}</span>`;
+                        div.onclick = () => { window.location.href = item.target; };
+                    }
+                    resultsList.appendChild(div);
+                });
+            } else {
+                resultsList.style.display = 'block';
+                resultsList.innerHTML = '<div class="search-item" style="color:#b2bec3; justify-content:center;">No matches found</div>';
+            }
+        });
+
+        document.addEventListener('click', (e) => { if (!searchInput.contains(e.target)) resultsList.style.display = 'none'; });
+    </script>
+</body>
+</html>
