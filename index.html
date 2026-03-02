@@ -76,7 +76,6 @@
         .cta-banner h2 { font-size: 2.5rem; margin: 0 0 20px 0; }
         .white-btn { background: white; color: var(--accent); padding: 15px 35px; border-radius: 15px; text-decoration: none; font-weight: 800; transition: 0.3s; display: inline-block; }
 
-        /* --- Updated Status Bar & Pulsing Dot --- */
         .status-bar { margin-top: 40px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 12px; }
         
         .dot-out { 
@@ -194,7 +193,7 @@
     </footer>
 
     <script>
-        // --- CART SYSTEM ---
+    
         let cart = JSON.parse(localStorage.getItem('sipSavorCart')) || [];
 
         function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
@@ -235,7 +234,7 @@
 
         updateUI();
 
-        // --- SEARCH SYSTEM ---
+      
         const searchData = [
             { name: "Takis Fuego", info: "$0.50", price: 0.50, type: "snack", target: "menu.html" },
             { name: "Water", info: "$1.00", price: 1.00, type: "snack", target: "menu.html" },
