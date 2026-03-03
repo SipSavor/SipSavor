@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sellers Inventory | SipSavor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fdfcf9; 
+            --accent: #ff6b6b; 
+            --card-shadow: 15px 15px 40px #e0dfdb, -15px -15px 40px #ffffff;
+            --text: #2d3436;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            font-family: 'Outfit', sans-serif;
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 80px;
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+            margin-top: 20px;
+            width: 90%;
+            max-width: 1100px;
+            padding: 12px 25px;
+            background: rgba(253, 252, 249, 0.9); 
+            backdrop-filter: blur(10px);
+            border-radius: 100px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+            gap: 15px;
+            box-sizing: border-box;
+        }
+
+        .business-name { 
+            font-weight: 800; 
+            font-size: 1.3rem; 
+            color: var(--text); 
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .business-name span { color: var(--accent); }
+
+        /* Search bar takes up all middle space */
+        .search-wrapper { 
+            flex-grow: 1; 
+            max-width: 500px; 
+            position: relative; 
+        }
+
+        #inventorySearch { 
+            width: 100%; 
+            padding: 12px 20px; 
+            border-radius: 50px; 
+            border: 1px solid rgba(0,0,0,0.08); 
+            font-family: 'Outfit', sans-serif; 
+            outline: none; 
+            transition: 0.3s;
+        }
+        #inventorySearch:focus { 
+            border-color: var(--accent); 
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1); 
+        }
+
+        .nav-links { display: flex; gap: 20px; flex-shrink: 0; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.95rem; }
+
+        /* --- Seller Cards --- */
+        .section-header { margin-top: 50px; text-align: center; }
+        .section-header h1 { font-size: 2.5rem; font-weight: 800; margin: 0; }
+
+        .seller-container {
+            width: 90%; max-width: 1100px; margin-top: 35px;
+            background: white; padding: 30px; border-radius: 35px;
+            box-shadow: var(--card-shadow); border: 3px solid transparent;
+            transition: 0.5s ease; scroll-margin-top: 110px;
+            box-sizing: border-box;
+        }
+
+        .seller-info { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+        .seller-avatar { 
+            width: 50px; height: 50px; background: var(--accent); color: white; 
+            border-radius: 50%; display: flex; align-items: center; 
+            justify-content: center; font-size: 1.2rem; font-weight: 800; 
+        }
+
+        /* --- Inventory Table --- */
+        .table-responsive { width: 100%; overflow-x: auto; }
+        .inventory-table { width: 100%; border-collapse: collapse; }
+        .inventory-table th { text-align: left; padding: 12px; color: #b2bec3; font-size: 0.8rem; border-bottom: 2px solid #f1f1f1; }
+        .inventory-table td { padding: 18px 12px; border-bottom: 1px solid #f9f9f9; font-weight: 600; }
+
+        .stock-badge { padding: 6px 14px; border-radius: 12px; background: #f1f1f1; font-weight: 800; font-size: 0.85rem; }
+        .low-stock { color: var(--accent); background: #fff5f5; }
+
+        footer { margin-top: 80px; padding: 20px; color: #b2bec3; text-align: center; }
+
+        /* Mobile Optimization */
+        @media (max-width: 600px) {
+            nav { padding: 10px 18px; border-radius: 30px; gap: 8px; }
+            .business-name { font-size: 1.1rem; }
+            .nav-links { gap: 12px; }
+            .nav-links a { font-size: 0.85rem; }
+            .section-header h1 { font-size: 2rem; }
+            .seller-container { padding: 20px; border-radius: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="business-name">SipSavor<span>.</span></a>
+        
+        <div class="search-wrapper">
+            <input type="text" id="inventorySearch" placeholder="Search items..." autocomplete="off">
+            <div id="search-results" style="position: absolute; top: 55px; left: 0; width: 100%; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none; z-index: 1001; overflow: hidden;"></div>
+        </div>
+
+        <div class="nav-links">
+            <a href="menu.html">Menu</a>
+            <a href="inventory.html" style="color: var(--accent);">Inventory</a>
+        </div>
+    </nav>
+
+    <div class="section-header">
+        <h1>Live Inventory</h1>
+    </div>
+
+    <div class="seller-container" id="seller-ayden">
+        <div class="seller-info">
+            <div class="seller-avatar">AW</div>
+            <div>
+                <h2 style="margin:0; font-weight:800;">Ayden Wilson</h2>
+                <span style="color:#00b894; font-size:0.8rem; font-weight:700;">● ONLINE</span>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="inventory-table">
+                <thead><tr><th>Item</th><th>Price</th><th>Stock</th></tr></thead>
+                <tbody>
+                    <tr><td>Gatorade Blue</td><td>$2.00</td><td><span class="stock-badge">12 left</span></td></tr>
+                    <tr><td>Takis Fuego</td><td>$1.00</td><td><span class="stock-badge low-stock">3 left</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="seller-container" id="seller-samuel">
+        <div class="seller-info">
+            <div class="seller-avatar" style="background:#6c5ce7;">SD</div>
+            <div>
+                <h2 style="margin:0; font-weight:800;">Samuel Davis</h2>
+                <span style="color:#00b894; font-size:0.8rem; font-weight:700;">● ONLINE</span>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="inventory-table">
+                <thead><tr><th>Item</th><th>Price</th><th>Stock</th></tr></thead>
+                <tbody>
+                    <tr><td>Water Bottle</td><td>$1.00</td><td><span class="stock-badge">10 left</span></td></tr>
+                    <tr><td>Fruit Punch</td><td>$2.00</td><td><span class="stock-badge">6 left</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 SipSavor. Built for Nettleton Jr. High.</p>
+    </footer>
+
+    <script>
+        const inventoryData = [
+            { name: "Takis Fuego", seller: "Ayden Wilson", targetId: "seller-ayden" },
+            { name: "Gatorade Blue", seller: "Ayden Wilson", targetId: "seller-ayden" },
+            { name: "Water Bottle", seller: "Samuel Davis", targetId: "seller-samuel" },
+            { name: "Fruit Punch", seller: "Samuel Davis", targetId: "seller-samuel" },
+            { name: "Ayden Wilson", seller: "Seller", targetId: "seller-ayden" },
+            { name: "Samuel Davis", seller: "Seller", targetId: "seller-samuel" }
+        ];
+
+        const searchInput = document.getElementById('inventorySearch');
+        const resultsBox = document.getElementById('search-results');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase().trim();
+            resultsBox.innerHTML = '';
+            
+            if (query === '') {
+                resultsBox.style.display = 'none';
+                return;
+            }
+
+            const matches = inventoryData.filter(item => 
+                item.name.toLowerCase().includes(query)
+            );
+
+            if (matches.length > 0) {
+                resultsBox.style.display = 'block';
+                matches.forEach(match => {
+                    const div = document.createElement('div');
+                    div.style.padding = '12px 20px';
+                    div.style.borderBottom = '1px solid #f9f9f9';
+                    div.style.cursor = 'pointer';
+                    div.innerHTML = `<strong>${match.name}</strong> <br> <small style="color:#b2bec3">${match.seller}</small>`;
+                    
+                    div.onclick = () => {
+                        const target = document.getElementById(match.targetId);
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        target.style.borderColor = 'var(--accent)';
+                        setTimeout(() => { target.style.borderColor = 'transparent'; }, 2000);
+                        resultsBox.style.display = 'none';
+                        searchInput.value = '';
+                    };
+                    resultsBox.appendChild(div);
+                });
+            } else {
+                resultsBox.style.display = 'block';
+                resultsBox.innerHTML = '<div style="padding:12px 20px; color:#b2bec3">Not found</div>';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target)) resultsBox.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
