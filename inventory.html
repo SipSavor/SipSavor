@@ -28,7 +28,6 @@
             overflow-x: hidden;
         }
 
-        
         nav {
             position: sticky;
             top: 20px;
@@ -48,39 +47,19 @@
             box-sizing: border-box;
         }
 
-        .business-name { 
-            font-weight: 800; 
-            font-size: 1.3rem; 
-            color: var(--text); 
-            text-decoration: none;
-            flex-shrink: 0;
-        }
+        .business-name { font-weight: 800; font-size: 1.3rem; color: var(--text); text-decoration: none; flex-shrink: 0; }
         .business-name span { color: var(--accent); }
 
-        .search-wrapper { 
-            flex-grow: 1; 
-            max-width: 500px; 
-            position: relative; 
-        }
+        .search-wrapper { flex-grow: 1; max-width: 400px; position: relative; }
+        #inventorySearch { width: 100%; padding: 12px 20px; border-radius: 50px; border: 1px solid rgba(0,0,0,0.08); font-family: 'Outfit', sans-serif; outline: none; }
 
-        #inventorySearch { 
-            width: 100%; 
-            padding: 12px 20px; 
-            border-radius: 50px; 
-            border: 1px solid rgba(0,0,0,0.08); 
-            font-family: 'Outfit', sans-serif; 
-            outline: none; 
-            transition: 0.3s;
-        }
-        #inventorySearch:focus { 
-            border-color: var(--accent); 
-            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1); 
-        }
+        .search-results-list { position: absolute; top: 55px; left: 0; width: 100%; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none; z-index: 1001; overflow: hidden; border: 1px solid #eee; }
+        .search-item { padding: 12px 20px; border-bottom: 1px solid #f9f9f9; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
+        .search-item:hover { background: #fff5f5; }
 
         .nav-links { display: flex; gap: 20px; flex-shrink: 0; }
         .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.95rem; }
 
-      
         .section-header { margin-top: 50px; text-align: center; }
         .section-header h1 { font-size: 2.5rem; font-weight: 800; margin: 0; }
 
@@ -93,59 +72,56 @@
         }
 
         .seller-info { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
-        .seller-avatar { 
-            width: 50px; height: 50px; background: var(--accent); color: white; 
-            border-radius: 50%; display: flex; align-items: center; 
-            justify-content: center; font-size: 1.2rem; font-weight: 800; 
-        }
+        .seller-avatar { width: 50px; height: 50px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 800; }
 
-     
         .table-responsive { width: 100%; overflow-x: auto; }
         .inventory-table { width: 100%; border-collapse: collapse; }
         .inventory-table th { text-align: left; padding: 12px; color: #b2bec3; font-size: 0.8rem; border-bottom: 2px solid #f1f1f1; }
         .inventory-table td { padding: 18px 12px; border-bottom: 1px solid #f9f9f9; font-weight: 600; }
 
-  
-        .stock-badge { 
-            padding: 6px 14px; 
-            border-radius: 12px; 
-            background: #f1f1f1; 
-            font-weight: 800; 
-            font-size: 0.85rem; 
-        }
-        
+        /* Cart Styles */
+        #cart-sidebar { position: fixed; right: -350px; top: 0; width: 300px; height: 100%; background: white; box-shadow: -10px 0 30px rgba(0,0,0,0.1); z-index: 2000; transition: 0.4s; padding: 30px; display: flex; flex-direction: column; box-sizing: border-box; }
+        #cart-sidebar.open { right: 0; }
+        #cart-items { flex-grow: 1; overflow-y: auto; }
+        .cart-item { display: flex; justify-content: space-between; padding: 12px 10px; border-bottom: 1px solid #eee; font-weight: 600; cursor: pointer; }
+        .cart-item:hover { text-decoration: line-through; color: var(--accent); }
+        .cart-trigger { position: fixed; bottom: 30px; right: 30px; background: var(--accent); color: white; width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; z-index: 1500; box-shadow: 0 10px 25px rgba(255,107,107,0.3); }
+        #cart-count { position: absolute; top: 0; right: 0; background: var(--text); color: white; font-size: 0.8rem; padding: 4px 8px; border-radius: 50%; border: 2px solid white; }
 
-        .high-stock { color: var(--green); background: #e6faf5; }
-        
-     
-        .medium-stock { color: var(--yellow); background: #fef9e7; }
-        
-       
+        .mini-add-btn { background: var(--accent); color: white; border: none; padding: 6px 14px; border-radius: 12px; font-weight: 800; font-size: 0.75rem; cursor: pointer; transition: 0.2s; }
+        .stock-badge { padding: 6px 14px; border-radius: 12px; font-weight: 800; font-size: 0.85rem; background: #f1f1f1; }
         .low-stock { color: var(--red); background: #fff5f5; }
 
         footer { margin-top: 80px; padding: 20px; color: #b2bec3; text-align: center; }
 
-       
         @media (max-width: 600px) {
             nav { padding: 10px 18px; border-radius: 30px; gap: 8px; }
-            .business-name { font-size: 1.1rem; }
-            .nav-links { gap: 12px; }
-            .nav-links a { font-size: 0.85rem; }
             .section-header h1 { font-size: 2rem; }
-            .seller-container { padding: 20px; border-radius: 25px; }
         }
     </style>
 </head>
 <body>
 
+    <div id="cart-sidebar">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="margin:0">Order Plan</h2>
+            <div onclick="toggleCart()" style="cursor:pointer; font-size:1.8rem; font-weight:800; color:var(--accent);">×</div>
+        </div>
+        <div id="cart-items"></div>
+        <div style="font-weight: 800; font-size: 1.4rem; text-align: right; margin-top:10px;">Total: $<span id="total-amount">0.00</span></div>
+        <button onclick="clearCart()" style="margin-top:20px; background:#f1f1f1; border:none; padding:12px; border-radius:12px; cursor:pointer; font-family:'Outfit'; font-weight:700; width:100%;">Clear All</button>
+    </div>
+
+    <div class="cart-trigger" onclick="toggleCart()">
+        🛒 <span id="cart-count">0</span>
+    </div>
+
     <nav>
         <a href="index.html" class="business-name">SipSavor<span>.</span></a>
-        
         <div class="search-wrapper">
-            <input type="text" id="inventorySearch" placeholder="Search items..." autocomplete="off">
-            <div id="search-results" style="position: absolute; top: 55px; left: 0; width: 100%; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none; z-index: 1001; overflow: hidden;"></div>
+            <input type="text" id="inventorySearch" placeholder="Search items or sellers..." autocomplete="off">
+            <div id="search-results-list" class="search-results-list"></div>
         </div>
-
         <div class="nav-links">
             <a href="menu.html">Menu</a>
             <a href="inventory.html" style="color: var(--accent);">Inventory</a>
@@ -166,11 +142,11 @@
         </div>
         <div class="table-responsive">
             <table class="inventory-table">
-                <thead><tr><th>Item</th><th>Price</th><th>Stock</th></tr></thead>
+                <thead><tr><th>Item</th><th>Price</th><th>Stock</th><th>Action</th></tr></thead>
                 <tbody>
-                    <tr><td>Water Bittle</td><td>$1.00</td><td><span class="stock-badge low-stock">Out</span></td></tr>
-                    <tr><td>Takis Feugo</td><td>$1.00</td><td><span class="stock-badge low-stock">Out</span></td></tr>
-                    <tr><td>Gatorade</td><td>$2.00</td><td><span class="stock-badge low-stock">Out</span></td></tr>
+                    <tr><td>Water Bottle</td><td>$1.00</td><td><span class="stock-badge low-stock">Out</span></td><td><button class="mini-add-btn" onclick="addToCart('Water Bottle', 1.00)">+ Add</button></td></tr>
+                    <tr><td>Takis Fuego</td><td>$1.00</td><td><span class="stock-badge low-stock">Out</span></td><td><button class="mini-add-btn" onclick="addToCart('Takis Fuego', 1.00)">+ Add</button></td></tr>
+                    <tr><td>Gatorade</td><td>$2.00</td><td><span class="stock-badge low-stock">Out</span></td><td><button class="mini-add-btn" onclick="addToCart('Gatorade', 2.00)">+ Add</button></td></tr>
                 </tbody>
             </table>
         </div>
@@ -181,16 +157,16 @@
             <div class="seller-avatar" style="background:#6c5ce7;">SD</div>
             <div>
                 <h2 style="margin:0; font-weight:800;">Samuel Davis</h2>
-                <span style="color:#00b894; font-size:0.8rem; font-weight:700;">● ON CAPMUS</span>
+                <span style="color:#00b894; font-size:0.8rem; font-weight:700;">● ON CAMPUS</span>
             </div>
         </div>
         <div class="table-responsive">
             <table class="inventory-table">
-                <thead><tr><th>Item</th><th>Price</th><th>Stock</th></tr></thead>
+                <thead><tr><th>Item</th><th>Price</th><th>Stock</th><th>Action</th></tr></thead>
                 <tbody>
-                    <tr><td>Water Bottle</td><td>$1.00</td><td><span class="stock-badge low-stock">Out</span></td></tr>
-                    <tr><td>Takis Feugo</td><td>$1.00</td><td><span class="stock-badge low-stock">Out</span></span></td></tr>
-                    <tr><td>Gatorade</td><td>$2.00</td><td><span class="stock-badge low-stock">Out</span></td></tr>
+                    <tr><td>Water Bottle</td><td>$1.00</td><td><span class="stock-badge low-stock">Out</span></td><td><button class="mini-add-btn" onclick="addToCart('Water Bottle', 1.00)">+ Add</button></td></tr>
+                    <tr><td>Takis Fuego</td><td>$1.00</td><td><span class="stock-badge low-stock">Out</span></td><td><button class="mini-add-btn" onclick="addToCart('Takis Fuego', 1.00)">+ Add</button></td></tr>
+                    <tr><td>Gatorade</td><td>$2.00</td><td><span class="stock-badge low-stock">Out</span></td><td><button class="mini-add-btn" onclick="addToCart('Gatorade', 2.00)">+ Add</button></td></tr>
                 </tbody>
             </table>
         </div>
@@ -201,61 +177,102 @@
     </footer>
 
     <script>
+        // --- CART LOGIC (Matches Home Page) ---
+        let cart = JSON.parse(localStorage.getItem('sipSavorCart')) || [];
+
+        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
+
+        function addToCart(name, price) {
+            cart.push({ name, price: parseFloat(price) });
+            saveAndUpdate();
+            if(!document.getElementById('cart-sidebar').classList.contains('open')) toggleCart();
+        }
+
+        function removeFromCart(index) { cart.splice(index, 1); saveAndUpdate(); }
+        function clearCart() { cart = []; saveAndUpdate(); }
+
+        function saveAndUpdate() {
+            localStorage.setItem('sipSavorCart', JSON.stringify(cart));
+            updateUI();
+        }
+
+        function updateUI() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            let total = 0;
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="color:#b2bec3; text-align:center; margin-top:20px;">Empty!</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    const div = document.createElement('div');
+                    div.className = 'cart-item';
+                    div.onclick = () => removeFromCart(index);
+                    div.innerHTML = `<span>${item.name}</span><span>$${item.price.toFixed(2)}</span>`;
+                    container.appendChild(div);
+                });
+            }
+            document.getElementById('total-amount').innerText = total.toFixed(2);
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        // Initialize Cart UI
+        updateUI();
+
+        // --- SEARCH LOGIC (Updated to match Home Page functionality) ---
         const inventoryData = [
-            { name: "Water", seller: "Ayden Wilson", targetId: "seller-ayden" },
-            { name: "Takis Fuego", seller: "Ayden Wilson", targetId: "seller-ayden" },
-            { name: "Gatorade", seller: "Ayden Wilson", targetId: "seller-ayden" },
-            { name: "Water Bottle", seller: "Samuel Davis", targetId: "seller-samuel" },
-            { name: "Takis Fuego", seller: "Samuel Davis", targetId: "seller-samuel" },
-            { name: "Gatorade", seller: "Samuel Davis", targetId: "seller-samuel" },
-            { name: "Ayden Wilson", seller: "Seller", targetId: "seller-ayden" },
-            { name: "Samuel Davis", seller: "Seller", targetId: "seller-samuel" }
+            { name: "Water Bottle", info: "$1.00", price: 1.00, type: "snack", targetId: "seller-ayden" },
+            { name: "Takis Fuego", info: "$1.00", price: 1.00, type: "snack", targetId: "seller-ayden" },
+            { name: "Gatorade", info: "$2.00", price: 2.00, type: "snack", targetId: "seller-ayden" },
+            { name: "Ayden Wilson", info: "Seller", type: "seller", targetId: "seller-ayden" },
+            { name: "Samuel Davis", info: "Seller", type: "seller", targetId: "seller-samuel" }
         ];
 
         const searchInput = document.getElementById('inventorySearch');
-        const resultsBox = document.getElementById('search-results');
+        const resultsList = document.getElementById('search-results-list');
 
         searchInput.addEventListener('input', () => {
             const query = searchInput.value.toLowerCase().trim();
-            resultsBox.innerHTML = '';
-            
-            if (query === '') {
-                resultsBox.style.display = 'none';
-                return;
-            }
+            resultsList.innerHTML = '';
+            if (query === '') { resultsList.style.display = 'none'; return; }
 
-            const matches = inventoryData.filter(item => 
-                item.name.toLowerCase().includes(query)
-            );
+            const matches = inventoryData.filter(item => item.name.toLowerCase().includes(query));
 
             if (matches.length > 0) {
-                resultsBox.style.display = 'block';
-                matches.forEach(match => {
+                resultsList.style.display = 'block';
+                matches.forEach(item => {
                     const div = document.createElement('div');
-                    div.style.padding = '12px 20px';
-                    div.style.borderBottom = '1px solid #f9f9f9';
-                    div.style.cursor = 'pointer';
-                    div.innerHTML = `<strong>${match.name}</strong> <br> <small style="color:#b2bec3">${match.seller}</small>`;
+                    div.className = 'search-item';
+                    
+                    let textContent = `
+                        <div style="display:flex; flex-direction:column; text-align:left;">
+                            <span style="font-weight:700;">${item.name}</span>
+                            <span style="font-size:0.75rem; color:#b2bec3;">${item.info}</span>
+                        </div>`;
+
+                    if (item.type === "snack") {
+                        div.innerHTML = `${textContent} <button class="mini-add-btn" onclick="event.stopPropagation(); addToCart('${item.name}', ${item.price})">+ Add</button>`;
+                    } else {
+                        div.innerHTML = `${textContent} <span style="color:var(--accent); font-weight:700; font-size:0.8rem;">VIEW SELLER</span>`;
+                    }
                     
                     div.onclick = () => {
-                        const target = document.getElementById(match.targetId);
+                        const target = document.getElementById(item.targetId);
                         target.scrollIntoView({ behavior: 'smooth' });
                         target.style.borderColor = 'var(--accent)';
                         setTimeout(() => { target.style.borderColor = 'transparent'; }, 2000);
-                        resultsBox.style.display = 'none';
+                        resultsList.style.display = 'none';
                         searchInput.value = '';
                     };
-                    resultsBox.appendChild(div);
+                    resultsList.appendChild(div);
                 });
             } else {
-                resultsBox.style.display = 'block';
-                resultsBox.innerHTML = '<div style="padding:12px 20px; color:#b2bec3">Not found</div>';
+                resultsList.style.display = 'block';
+                resultsList.innerHTML = '<div class="search-item" style="color:#b2bec3; justify-content:center;">No matches found</div>';
             }
         });
 
-        document.addEventListener('click', (e) => {
-            if (!searchInput.contains(e.target)) resultsBox.style.display = 'none';
-        });
+        document.addEventListener('click', (e) => { if (!searchInput.contains(e.target)) resultsList.style.display = 'none'; });
     </script>
 </body>
 </html>
