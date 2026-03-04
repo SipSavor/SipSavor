@@ -239,8 +239,9 @@
             { name: "Takis Fuego", info: "$1.00", price: 1.00, type: "snack", target: "menu.html" },
             { name: "Water", info: "$1.00", price: 1.00, type: "snack", target: "menu.html" },
             { name: "Gatorade", info: "$2.00", price: 2.00, type: "snack", target: "menu.html" },
-            { name: "Ayden Wilson", info: "Seller", type: "seller", target: "sellers.html" },
-            { name: "Samuel Davis", info: "Seller", type: "seller", target: "sellers.html" }
+            // UPDATED: Points to inventory.html and uses the anchor ID for scrolling
+            { name: "Ayden Wilson", info: "Seller", type: "seller", target: "inventory.html#seller-ayden" },
+            { name: "Samuel Davis", info: "Seller", type: "seller", target: "inventory.html#seller-samuel" }
         ];
 
         const searchInput = document.getElementById('siteSearch');
@@ -259,7 +260,6 @@
                     const div = document.createElement('div');
                     div.className = 'search-item';
                     
-                    // Creates the vertical layout for the name and price
                     let textContent = `
                         <div style="display:flex; flex-direction:column; text-align:left;">
                             <span style="font-weight:700;">${item.name}</span>
