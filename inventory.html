@@ -99,16 +99,24 @@
                     <td>Water Bottle</td>
                     <td>$1.00</td>
                     <td style="text-align:right;">
-                        <span class="status-pill status-high">In Stock</span>
-                        <button class="mini-add-btn" onclick="addToCart('Water Bottle', 1.0)">+ Add</button>
+                        <span class="status-pill status-out">Out of Stock</span>
+                        <button class="mini-add-btn" disabled>+ Add</button>
                     </td>
                 </tr>
                 <tr>
                     <td>Takis Fuego</td>
                     <td>$1.00</td>
                     <td style="text-align:right;">
-                        <span class="status-pill status-low">Low Stock</span>
-                        <button class="mini-add-btn" onclick="addToCart('Takis Fuego', 1.0)">+ Add</button>
+                        <span class="status-pill status-out">Out of Stock</span>
+                        <button class="mini-add-btn" disabled>+ Add</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gatorade</td>
+                    <td>$2.00</td>
+                    <td style="text-align:right;">
+                        <span class="status-pill status-out">Out of Stock</span>
+                        <button class="mini-add-btn" disabled>+ Add</button>
                     </td>
                 </tr>
             </tbody>
@@ -120,6 +128,22 @@
         <table class="inventory-table">
             <thead><tr><th>Item</th><th>Price</th><th style="text-align:right;">Availability & Action</th></tr></thead>
             <tbody>
+                <tr>
+                    <td>Water Bottle</td>
+                    <td>$1.00</td>
+                    <td style="text-align:right;">
+                        <span class="status-pill status-out">Out of Stock</span>
+                        <button class="mini-add-btn" disabled>+ Add</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Takis Fuego</td>
+                    <td>$1.00</td>
+                    <td style="text-align:right;">
+                        <span class="status-pill status-out">Out of Stock</span>
+                        <button class="mini-add-btn" disabled>+ Add</button>
+                    </td>
+                </tr>
                 <tr>
                     <td>Gatorade</td>
                     <td>$2.00</td>
@@ -192,7 +216,7 @@
                         </div>`;
                     
                     if (item.type === "snack") {
-                        div.innerHTML = `${content} <button class="mini-add-btn" onclick="event.stopPropagation(); addToCart('${item.name}', ${item.price})">+ Add</button>`;
+                        div.innerHTML = `${content} <button class="mini-add-btn" disabled>Out</button>`;
                     } else {
                         div.innerHTML = `${content} <span style="color:var(--accent); font-weight:800; font-size:0.7rem;">SCROLL TO</span>`;
                     }
