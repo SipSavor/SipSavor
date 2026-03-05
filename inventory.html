@@ -40,8 +40,8 @@
         .search-item { padding: 12px 20px; border-bottom: 1px solid #f9f9f9; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
         .search-item:hover { background: #fff5f5; }
 
-        /* Status Badges */
-        .status-pill { font-size: 0.65rem; padding: 3px 8px; border-radius: 20px; font-weight: 800; text-transform: uppercase; margin-top: 4px; display: inline-block; }
+        /* Stock Status Badges (Now in Table) */
+        .status-pill { font-size: 0.7rem; padding: 5px 12px; border-radius: 10px; font-weight: 800; text-transform: uppercase; margin-right: 10px; display: inline-block; vertical-align: middle; }
         .status-high { background: #e6fffb; color: var(--green); }
         .status-low { background: #fffbe6; color: var(--yellow); }
         .status-out { background: #fff5f5; color: var(--red); }
@@ -50,10 +50,11 @@
         .seller-container { width: 90%; max-width: 1100px; margin-top: 35px; background: white; padding: 30px; border-radius: 35px; box-shadow: var(--card-shadow); border: 3px solid transparent; transition: 0.5s ease; scroll-margin-top: 110px; box-sizing: border-box; }
         .seller-info { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
         .seller-avatar { width: 50px; height: 50px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; }
+        
         .inventory-table { width: 100%; border-collapse: collapse; }
-        .inventory-table td { padding: 18px 12px; border-bottom: 1px solid #f9f9f9; font-weight: 600; }
+        .inventory-table th { text-align: left; padding: 10px; color: #b2bec3; font-size: 0.75rem; border-bottom: 2px solid #f9f9f9; }
+        .inventory-table td { padding: 20px 10px; border-bottom: 1px solid #f9f9f9; font-weight: 600; vertical-align: middle; }
 
-        /* Buttons */
         .mini-add-btn { background: var(--accent); color: white; border: none; padding: 8px 18px; border-radius: 14px; font-weight: 800; cursor: pointer; transition: 0.2s; font-family: 'Outfit'; }
         .mini-add-btn:disabled { background: #dfe6e9; cursor: not-allowed; color: #b2bec3; }
 
@@ -95,8 +96,42 @@
     <div class="seller-container" id="seller-ayden">
         <div class="seller-info"><div class="seller-avatar">AW</div><h2>Ayden Wilson</h2></div>
         <table class="inventory-table">
-            <tr><td>Water Bottle</td><td>$1.00</td><td><button class="mini-add-btn" onclick="addToCart('Water Bottle', 1.0)">+ Add</button></td></tr>
-            <tr><td>Takis Fuego</td><td>$1.00</td><td><button class="mini-add-btn" onclick="addToCart('Takis Fuego', 1.0)">+ Add</button></td></tr>
+            <thead><tr><th>Item</th><th>Price</th><th style="text-align:right;">Availability & Action</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td>Water Bottle</td>
+                    <td>$1.00</td>
+                    <td style="text-align:right;">
+                        <span class="status-pill status-high">In Stock</span>
+                        <button class="mini-add-btn" onclick="addToCart('Water Bottle', 1.0)">+ Add</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Takis Fuego</td>
+                    <td>$1.00</td>
+                    <td style="text-align:right;">
+                        <span class="status-pill status-low">Low Stock</span>
+                        <button class="mini-add-btn" onclick="addToCart('Takis Fuego', 1.0)">+ Add</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="seller-container" id="seller-samuel">
+        <div class="seller-info"><div class="seller-avatar" style="background:#6c5ce7;">SD</div><h2>Samuel Davis</h2></div>
+        <table class="inventory-table">
+            <thead><tr><th>Item</th><th>Price</th><th style="text-align:right;">Availability & Action</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td>Gatorade</td>
+                    <td>$2.00</td>
+                    <td style="text-align:right;">
+                        <span class="status-pill status-out">Out of Stock</span>
+                        <button class="mini-add-btn" disabled>+ Add</button>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
@@ -125,12 +160,13 @@
         }
         updateUI();
 
-        // --- SEARCH LOGIC WITH STOCK COLORS ---
+        // --- SEARCH LOGIC (Clean Search) ---
         const inventoryData = [
-            { name: "Water Bottle", info: "$1.00", price: 1.0, type: "snack", stock: "high", target: "menu.html" },
-            { name: "Takis Fuego", info: "$1.00", price: 1.0, type: "snack", stock: "low", target: "menu.html" },
-            { name: "Gatorade", info: "$2.00", price: 2.0, type: "snack", stock: "out", target: "menu.html" },
-            { name: "Ayden Wilson", info: "Seller", type: "seller", target: "seller-ayden" }
+            { name: "Water Bottle", info: "$1.00", price: 1.0, type: "snack", target: "menu.html" },
+            { name: "Takis Fuego", info: "$1.00", price: 1.0, type: "snack", target: "menu.html" },
+            { name: "Gatorade", info: "$2.00", price: 2.0, type: "snack", target: "menu.html" },
+            { name: "Ayden Wilson", info: "Seller", type: "seller", target: "seller-ayden" },
+            { name: "Samuel Davis", info: "Seller", type: "seller", target: "seller-samuel" }
         ];
 
         const searchInput = document.getElementById('inventorySearch');
@@ -148,28 +184,15 @@
                     const div = document.createElement('div');
                     div.className = 'search-item';
                     
-                    let stockBadge = "";
-                    let isBtnDisabled = "";
-
-                    if(item.type === "snack") {
-                        if(item.stock === "high") stockBadge = `<span class="status-pill status-high">In Stock</span>`;
-                        else if(item.stock === "low") stockBadge = `<span class="status-pill status-low">Low Stock</span>`;
-                        else { 
-                            stockBadge = `<span class="status-pill status-out">Out of Stock</span>`;
-                            isBtnDisabled = "disabled";
-                        }
-                    }
-
                     let content = `<div style="display:flex; flex-direction:column;">
                         <b>${item.name}</b>
                         <small style="color:#b2bec3;">${item.info}</small>
-                        ${stockBadge}
                     </div>`;
                     
                     if (item.type === "snack") {
-                        div.innerHTML = `${content} <button class="mini-add-btn" ${isBtnDisabled} onclick="event.stopPropagation(); addToCart('${item.name}', ${item.price})">+ Add</button>`;
+                        div.innerHTML = `${content} <button class="mini-add-btn" onclick="event.stopPropagation(); addToCart('${item.name}', ${item.price})">+ Add</button>`;
                     } else {
-                        div.innerHTML = `${content} <span style="color:var(--accent); font-weight:800; font-size:0.7rem;">VIEW</span>`;
+                        div.innerHTML = `${content} <span style="color:var(--accent); font-weight:800; font-size:0.7rem;">SCROLL TO</span>`;
                     }
 
                     div.onclick = () => {
@@ -178,12 +201,14 @@
                             const el = document.getElementById(item.target);
                             el.scrollIntoView({ behavior: 'smooth' });
                             resultsList.style.display = 'none';
+                            searchInput.value = '';
                         }
                     };
                     resultsList.appendChild(div);
                 });
             }
         });
+        document.addEventListener('click', (e) => { if (!searchInput.contains(e.target)) resultsList.style.display = 'none'; });
     </script>
 </body>
 </html>
